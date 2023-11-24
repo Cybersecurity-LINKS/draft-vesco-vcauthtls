@@ -5,9 +5,9 @@
 WG                                                              A. Vesco
 Internet-Draft                                               L. Perugini
 Intended status: Informational                          LINKS Foundation
-Expires: 25 May 2024                                           N. Tuveri
+Expires: 27 May 2024                                           N. Tuveri
                                                       Tampere University
-                                                        22 November 2023
+                                                        24 November 2023
 
 
 Transport Layer Security (TLS) Authentication with Verifiable Credential
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 25 May 2024.
+   This Internet-Draft will expire on 27 May 2024.
 
 Copyright Notice
 
@@ -112,21 +112,20 @@ Table of Contents
    distributed ledger of choice for other nodes to authenticate it.  A
    node's DID is a pointer to the distributed ledger where other nodes
    can retrieve its _pk_. A DID is a Uniform Resource Identifier (URI)
-   in the form _did:did-method-name:method-specific-id_ where _method-
-   name_ is the name of the [DID] Method used to interact with the
-   distributed ledger and _method-specific-id_ is the pointer to the
-   [DID] Document that contains _pk_, stored in the distributed ledger.
-   After that, the node can request a VC from one of the Issuers
-   available in the system.  The VC contains the metadata to describe
-   properties of the credential, the DID and the claims about the
-   identity of the node and the signature of the Issuer.  The
-   combination of the key pair (_sk_, _pk_), the DID and at least one VC
-   forms the identity compliant with the SSI model.  A node requests
-   access to services by presenting a Verfiable Presentation [VP].  The
-   VP is an envelop of the VC signed by the node holding the VC with its
-   _sk_. The verifier authenticates the node checking the validity and
-   authenticity of the VP and the inner VC before granting or denying
-   access to the requesting node.
+   in the form did:did-method-name:method-specific-id where method-name
+   is the name of the [DID] Method used to interact with the distributed
+   ledger and method-specific-id is the pointer to the [DID] Document
+   that contains _pk_, stored in the distributed ledger.  After that,
+   the node can request a VC from one of the Issuers available in the
+   system.  The VC contains the metadata to describe properties of the
+   credential, the DID and the claims about the identity of the node and
+   the signature of the Issuer.  The combination of the key pair (_sk_,
+   _pk_), the DID and at least one VC forms the identity compliant with
+   the SSI model.  A node requests access to services by presenting a
+   Verfiable Presentation [VP].  The VP is an envelop of the VC signed
+   by the node holding the VC with its _sk_. The verifier authenticates
+   the node checking the validity and authenticity of the VP and the
+   inner VC before granting or denying access to the requesting node.
 
    The current implementations of the authentication process run at the
    Application layer.  A client node estabhlishes a TLS channel
@@ -151,6 +150,10 @@ Table of Contents
    technologies to store their public keys and to authenticate the peer.
    The authentication process is successful if the TLS endpoints
    implement the DID Method to resolve the peer's DID.
+
+   This document uses _italic formatting_ in the following sections to
+   mark some paragraphs discussing items still under design: Section 5.2
+   and Section 5.4.
 
 2.  Conventions and Definitions
 
@@ -325,8 +328,20 @@ Table of Contents
    *  Both client and server indicate support for the VC certificate
       type.  The server selects VC certificate type, but the server's
       DID is not compatible with any of the DID Methods supported by the
-      client and listed in the did_methods extension in the ClientHello
-      message.  The server terminates the session.
+      client and listed in the did_methods extension sent with the
+      ClientHello message. _This document defines two possible server
+      behaviours (a) the server terminates the session with a fatal
+      alert of type unsupported_did_methods, (b) the server sends a
+      HelloRetryRequest (HRR) message with a new extension listing the
+      DLTs in which it owns a DID_.
+
+   _These design considerations apply: solution (a) requires defining a
+   new fatal alert message type, and the client has no clues to perform
+   a new successful TLS handshake; solution (b) requires defining a new
+   HRR extension which could have privacy implications as it discloses
+   the DLTs where the server owns its DIDs; on the other hand, this
+   extension provides the client with clues to retry a successful new
+   TLS handshake_.
 
    *  Both client and server indicate support for the VC certificate
       type, the server MAY select the first (most preferred) certificate
@@ -355,11 +370,11 @@ Table of Contents
 
    When the selected certificate type is VC, the certificate_list in the
    Certificate message MUST contain no more than one CertificateEntry
-   with the content of the endpoint's Verifiable Credential.  The
-   content of the Verifiable Credential SHOULD be CBOR encoded.  After
-   decoding, the endpoint MUST follows the procedure in VC
-   (https://www.w3.org/TR/vc-data-model-2.0/) to verify the Verifiable
-   Credential.
+   with the content of the endpoint's Verifiable Credential. _This
+   document propose to mandate CBOR encoding for the Verifiable
+   Credential_. After decoding, the endpoint MUST follows the procedure
+   in VC (https://www.w3.org/TR/vc-data-model-2.0/) to verify the
+   Verifiable Credential.
 
 5.5.  CertificateVerify message
 
