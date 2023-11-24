@@ -1219,7 +1219,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </nav>
 </section>
 </div>
-<div id="introduction">
+<div id="sec-intro">
 <section id="section-1">
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
@@ -1326,8 +1326,10 @@ struct {
       <h2 id="name-tls-client-and-server-hands">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-tls-client-and-server-hands" class="section-name selfRef">TLS Client and Server Handshake</a>
       </h2>
-<p id="section-5-1">Figure 1 shows the message flow for full TLS handshake.<a href="#section-5-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5-2">
+<p id="section-5-1"><a href="#fig-full-handshake" class="auto internal xref">Figure 1</a> shows the message flow for full TLS handshake.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<span id="name-message-flow-for-full-tls-h"></span><div id="fig-full-handshake">
+<figure id="figure-1">
+        <div class="alignCenter art-text artwork" id="section-5-2.1">
 <pre>
 DLT          Client                               Server           DLT
 
@@ -1366,16 +1368,18 @@ DLT          Client                               Server           DLT
            [sender]_handshake_traffic_secret.
         [] Indicates messages protected using keys
            derived from [sender]_application_traffic_secret_N.
-
-Figure 1: Message Flow for full TLS Handshake
-</pre><a href="#section-5-2" class="pilcrow">¶</a>
+</pre>
+</div>
+<figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
+<a href="#name-message-flow-for-full-tls-h" class="selfRef">Message Flow for full TLS Handshake</a>
+        </figcaption></figure>
 </div>
 <div id="clienthello-message">
 <section id="section-5.1">
         <h3 id="name-clienthello-message">
 <a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-clienthello-message" class="section-name selfRef">ClientHello message</a>
         </h3>
-<p id="section-5.1-1">To express support for <code>VC</code> certificate type, a client <span class="bcp14">MUST</span> include the extension of type <code>client_certificate_type</code> or <code>server_certificate_type</code> in the extended <code>ClientHello</code> message as described in Section 4.1.2 of <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>. If the client sends the <code>server_certificate_type</code> extension indicating <code>VC</code>, it <span class="bcp14">MUST</span> also send the <code>did_methods</code> extension.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.1-1">To express support for <code>VC</code> certificate type, a client <span class="bcp14">MUST</span> include the extension of type <code>client_certificate_type</code> or <code>server_certificate_type</code> in the extended <code>ClientHello</code> message as described in <span><a href="https://rfc-editor.org/rfc/rfc8446#section-4.1.2" class="relref">Section 4.1.2</a> of [<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>. If the client sends the <code>server_certificate_type</code> extension indicating <code>VC</code>, it <span class="bcp14">MUST</span> also send the <code>did_methods</code> extension.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="serverhello-message">
@@ -1419,7 +1423,7 @@ Figure 1: Message Flow for full TLS Handshake
         <h3 id="name-certificate-message">
 <a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-certificate-message" class="section-name selfRef">Certificate message</a>
         </h3>
-<p id="section-5.4-1">When the selected certificate type is <code>VC</code>, the <code>certificate_list</code> in the <code>Certificate</code> message <span class="bcp14">MUST</span> contain no more than one <code>CertificateEntry</code> with the content of the endpoint's Verifiable Credential. <em>This document propose to mandate CBOR encoding for the Verifiable Credential</em>. After decoding, the endpoint <span class="bcp14">MUST</span> follows the procedure in <a href="https://www.w3.org/TR/vc-data-model-2.0/">VC</a> to verify the Verifiable Credential.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
+<p id="section-5.4-1">When the selected certificate type is <code>VC</code>, the <code>certificate_list</code> in the <code>Certificate</code> message <span class="bcp14">MUST</span> contain no more than one <code>CertificateEntry</code> with the content of the endpoint's Verifiable Credential. The content of the Verifiable Credential <span class="bcp14">SHOULD</span> be CBOR encoded. After decoding, the endpoint <span class="bcp14">MUST</span> follows the procedure in <span>[<a href="#VC" class="cite xref">VC</a>]</span> to verify the Verifiable Credential.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="certificateverify-message">
@@ -1427,7 +1431,7 @@ Figure 1: Message Flow for full TLS Handshake
         <h3 id="name-certificateverify-message">
 <a href="#section-5.5" class="section-number selfRef">5.5. </a><a href="#name-certificateverify-message" class="section-name selfRef">CertificateVerify message</a>
         </h3>
-<p id="section-5.5-1">As discussed in <a href="#introduction" class="auto internal xref">Section 1</a>, an Holder wraps its own Verifiable Credential into a Verifiable Presentation and signs it before presenting it to a Verifier for authentication purposes. During the TLS handshake, when the selected certificate type is <code>VC</code>, the subsequent <code>CertificateVerify</code> message acts also as the Holder signature on the Verifiable Presentation. In fact, the signature is computed over the transcript hash that contains also the Verifiable Credential of the sender inside the <code>Certificate</code> message.<a href="#section-5.5-1" class="pilcrow">¶</a></p>
+<p id="section-5.5-1">As discussed in <a href="#sec-intro" class="auto internal xref">Section 1</a>, an Holder wraps its own Verifiable Credential into a Verifiable Presentation and signs it before presenting it to a Verifier for authentication purposes. During the TLS handshake, when the selected certificate type is <code>VC</code>, the subsequent <code>CertificateVerify</code> message acts also as the Holder signature on the Verifiable Presentation. In fact, the signature is computed over the transcript hash that contains also the Verifiable Credential of the sender inside the <code>Certificate</code> message.<a href="#section-5.5-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1443,11 +1447,13 @@ Figure 1: Message Flow for full TLS Handshake
         <h3 id="name-server-authentication-with-">
 <a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-server-authentication-with-" class="section-name selfRef">Server authentication with Verifiable Credential</a>
         </h3>
-<p id="section-6.1-1">This example shows a TLS 1.3 handshake with server authentication. The client sends the <code>server_certificate_type</code> extension indicating both <code>VC</code> and <code>X.509</code> certificate types. In addition, the client sends the <code>did_methods</code> extension with the list of supported DID Methods. The client does not own an identity at the TLS level, therefore omits the <code>client_certificate_type</code> extension.
+<p id="section-6.1-1">The example in <a href="#fig-server-vc" class="auto internal xref">Figure 2</a> shows a TLS 1.3 handshake with server authentication. The client sends the <code>server_certificate_type</code> extension indicating both <code>VC</code> and <code>X.509</code> certificate types. In addition, the client sends the <code>did_methods</code> extension with the list of supported DID Methods. The client does not own an identity at the TLS level, therefore omits the <code>client_certificate_type</code> extension.
 The server selects <code>VC</code> certificate type, sends the EncryptedExtensions message with
 the <code>server_certificate_type</code> extension set to VC, and sends its Verifiable Credential into the Certificate message.
 After receiving the <code>CertificateVerify</code> and <code>Finished</code> messages, the client resolves the server's DID to retrieve the server <em>pk</em> and authenticate it.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-6.1-2">
+<span id="name-tls-server-uses-verifiable-"></span><div id="fig-server-vc">
+<figure id="figure-2">
+          <div class="alignCenter art-text artwork" id="section-6.1-2.1">
 <pre>
 DLT         Client                                              Server
 
@@ -1465,9 +1471,11 @@ DLT         Client                                              Server
  &lt;==========
             {Finished}              --------&gt;
             [Application Data]      &lt;-------&gt;        [Application Data]
-
-Figure 2: TLS Server Uses Verifiable Credential
-</pre><a href="#section-6.1-2" class="pilcrow">¶</a>
+</pre>
+</div>
+<figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
+<a href="#name-tls-server-uses-verifiable-" class="selfRef">TLS Server Uses Verifiable Credential</a>
+          </figcaption></figure>
 </div>
 </section>
 </div>
@@ -1476,11 +1484,13 @@ Figure 2: TLS Server Uses Verifiable Credential
         <h3 id="name-mutual-authentication-with-">
 <a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-mutual-authentication-with-" class="section-name selfRef">Mutual authentication with Verifiable Credentials</a>
         </h3>
-<p id="section-6.2-1">This example shows a TLS 1.3 handshake with mutual authentication where both client and server authenticate the peer using Verifiable Credentials.
+<p id="section-6.2-1">The example in <a href="#fig-mutual-vc" class="auto internal xref">Figure 3</a> shows a TLS 1.3 handshake with mutual authentication where both client and server authenticate the peer using Verifiable Credentials.
 The client sends the <code>server_certificate_type</code> extension indicating both <code>VC</code> and <code>X.509</code> certificate types along with the <code>did_methods</code> extension containing the list of supported DID Methods. The client also sends the <code>client_certificate_type</code> extension indicating its capability to provide both a Verifiable Credential and an X.509 certificate.
 The server sends the <code>server_certificate_type</code> set to <code>VC</code>, the <code>client_certificate_type</code> set to <code>VC</code> and the <code>CertificateRequest</code> message with the <code>did_methods</code> extension containig a set of DID Methods in common with the client. Client and server send their Verifiable Credential into their respective <code>Certificate</code> messages.
 After receiving the <code>CertificateVerify</code> and <code>Finished</code> messages, the client and then the server resolve the peer's DID to retrieve the associated <em>pk</em> and authenticate each other.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-6.2-2">
+<span id="name-tls-client-and-tls-server-u"></span><div id="fig-mutual-vc">
+<figure id="figure-3">
+          <div class="alignCenter art-text artwork" id="section-6.2-2.1">
 <pre>
 DLT        Client                                    Server         DLT
 
@@ -1507,9 +1517,11 @@ DLT        Client                                    Server         DLT
                                                            DID Resolve
                                                            ==========&gt;
            [Application Data] &lt;-------&gt;  [Application Data]
-
-Figure 3: TLS Client and TLS Server Use Verifiable Credentials
-</pre><a href="#section-6.2-2" class="pilcrow">¶</a>
+</pre>
+</div>
+<figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
+<a href="#name-tls-client-and-tls-server-u" class="selfRef">TLS Client and TLS Server Use Verifiable Credentials</a>
+          </figcaption></figure>
 </div>
 </section>
 </div>
@@ -1518,11 +1530,13 @@ Figure 3: TLS Client and TLS Server Use Verifiable Credentials
         <h3 id="name-mutual-authentication-with-c">
 <a href="#section-6.3" class="section-number selfRef">6.3. </a><a href="#name-mutual-authentication-with-c" class="section-name selfRef">Mutual authentication with Client using Verifiable Credential and Server using X.509 Certificate</a>
         </h3>
-<p id="section-6.3-1">This example shows a TLS 1.3 handshake with mutual authentication that combines the use of Verifiable Credential and X.509 certificate. The client uses a Verifiable Credential, and the server uses an X.509 certificate.
+<p id="section-6.3-1">The example in <a href="#fig-mutual-vc-x509" class="auto internal xref">Figure 4</a> shows a TLS 1.3 handshake with mutual authentication that combines the use of Verifiable Credential and X.509 certificate. The client uses a Verifiable Credential, and the server uses an X.509 certificate.
 The client sends the <code>server_certificate_type</code> extension indicating <code>X.509</code> certificate types. The client also sends the <code>client_certificate_type</code> extension indicating its capability to provide both a Verifiable Credential and an X.509 certificate.
 The server sends the <code>server_certificate_type</code> set to <code>X.509</code>, the <code>client_certificate_type</code> set to <code>VC</code> and the <code>CertificateRequest</code> message with the <code>did_methods</code> extension containig the set of suported DID Methods. The server sends its X.509 certificate and the client its Verifiable Credential into their respective <code>Certificate</code> messages.
 After receiving the <code>CertificateVerify</code> and <code>Finished</code> messages, the server resolves the client DID to retrieve the client <em>pk</em> and authenticate it.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-6.3-2">
+<span id="name-tls-client-uses-a-verifiabl"></span><div id="fig-mutual-vc-x509">
+<figure id="figure-4">
+          <div class="alignCenter art-text artwork" id="section-6.3-2.1">
 <pre>
 Client                                               Server         DLT
 
@@ -1546,10 +1560,11 @@ client_certificate_type=(VC,X.509)
                                                            DID Resolve
                                                            ==========&gt;
 [Application Data]      &lt;-------&gt;        [Application Data]
-
-Figure 4: TLS Client Uses a Verifiable Credential and TLS Server
-Uses an X.509 Certificate
-</pre><a href="#section-6.3-2" class="pilcrow">¶</a>
+</pre>
+</div>
+<figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
+<a href="#name-tls-client-uses-a-verifiabl" class="selfRef">TLS Client Uses a Verifiable Credential and TLS Server Uses an X.509 Certificate</a>
+          </figcaption></figure>
 </div>
 </section>
 </div>
@@ -1558,11 +1573,13 @@ Uses an X.509 Certificate
         <h3 id="name-mutual-authentication-with-cl">
 <a href="#section-6.4" class="section-number selfRef">6.4. </a><a href="#name-mutual-authentication-with-cl" class="section-name selfRef">Mutual authentication with Client using X.509 Certificate and Server using Verifiable Credential</a>
         </h3>
-<p id="section-6.4-1">This example complements the previous one showing a TLS 1.3 handshake with mutual authentication where the client uses X.509 certificate and the server a Verifiable Credential.
+<p id="section-6.4-1">The example in <a href="#fig-mutual-x509-vc" class="auto internal xref">Figure 5</a> complements the previous one showing a TLS 1.3 handshake with mutual authentication where the client uses X.509 certificate and the server a Verifiable Credential.
 The client sends the <code>server_certificate_type</code> extension indicating both <code>VC</code> and <code>X.509</code> certificate types along with the <code>did_methods</code> extension containing the list of supported DID Methods. The client also sends the <code>client_certificate_type</code> extension indicating its capability to provide only an X.509 certificate.
 The server sends the <code>server_certificate_type</code> set to <code>VC</code>, the <code>client_certificate_type</code> set to <code>X.509</code> and the <code>CertificateRequest</code> message. The server sends its Verifiable Credential, and the client its X.509 certificate into their respective <code>Certificate</code> messages.
 After receiving the <code>CertificateVerify</code> and <code>Finished</code> messages, the client resolves the server's DID to retrieve the server <em>pk</em> and authenticate the client.<a href="#section-6.4-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-6.4-2">
+<span id="name-tls-client-uses-an-x509-cer"></span><div id="fig-mutual-x509-vc">
+<figure id="figure-5">
+          <div class="alignCenter art-text artwork" id="section-6.4-2.1">
 <pre>
 DLT          Client                                              Server
 
@@ -1586,10 +1603,11 @@ DLT          Client                                              Server
             {CertificateVerify}
             {Finished}                 --------&gt;
             [Application Data]         &lt;-------&gt;     [Application Data]
-
-Figure 5: TLS Client Uses an X.509 Certificate and TLS Server Uses a
-Verifiable Credential
-</pre><a href="#section-6.4-2" class="pilcrow">¶</a>
+</pre>
+</div>
+<figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
+<a href="#name-tls-client-uses-an-x509-cer" class="selfRef">TLS Client Uses an X.509 Certificate and TLS Server Uses a Verifiable Credential</a>
+          </figcaption></figure>
 </div>
 </section>
 </div>

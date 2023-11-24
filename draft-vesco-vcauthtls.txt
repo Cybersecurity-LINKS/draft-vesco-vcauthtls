@@ -295,7 +295,7 @@ Table of Contents
           [] Indicates messages protected using keys
              derived from [sender]_application_traffic_secret_N.
 
-  Figure 1: Message Flow for full TLS Handshake
+              Figure 1: Message Flow for full TLS Handshake
 
 5.1.  ClientHello message
 
@@ -370,11 +370,10 @@ Table of Contents
 
    When the selected certificate type is VC, the certificate_list in the
    Certificate message MUST contain no more than one CertificateEntry
-   with the content of the endpoint's Verifiable Credential. _This
-   document propose to mandate CBOR encoding for the Verifiable
-   Credential_. After decoding, the endpoint MUST follows the procedure
-   in VC (https://www.w3.org/TR/vc-data-model-2.0/) to verify the
-   Verifiable Credential.
+   with the content of the endpoint's Verifiable Credential.  The
+   content of the Verifiable Credential SHOULD be CBOR encoded.  After
+   decoding, the endpoint MUST follows the procedure in [VC] to verify
+   the Verifiable Credential.
 
 5.5.  CertificateVerify message
 
@@ -394,17 +393,18 @@ Table of Contents
 
 6.1.  Server authentication with Verifiable Credential
 
-   This example shows a TLS 1.3 handshake with server authentication.
-   The client sends the server_certificate_type extension indicating
-   both VC and X.509 certificate types.  In addition, the client sends
-   the did_methods extension with the list of supported DID Methods.
-   The client does not own an identity at the TLS level, therefore omits
-   the client_certificate_type extension.  The server selects VC
-   certificate type, sends the EncryptedExtensions message with the
-   server_certificate_type extension set to VC, and sends its Verifiable
-   Credential into the Certificate message.  After receiving the
-   CertificateVerify and Finished messages, the client resolves the
-   server's DID to retrieve the server _pk_ and authenticate it.
+   The example in Figure 2 shows a TLS 1.3 handshake with server
+   authentication.  The client sends the server_certificate_type
+   extension indicating both VC and X.509 certificate types.  In
+   addition, the client sends the did_methods extension with the list of
+   supported DID Methods.  The client does not own an identity at the
+   TLS level, therefore omits the client_certificate_type extension.
+   The server selects VC certificate type, sends the EncryptedExtensions
+   message with the server_certificate_type extension set to VC, and
+   sends its Verifiable Credential into the Certificate message.  After
+   receiving the CertificateVerify and Finished messages, the client
+   resolves the server's DID to retrieve the server _pk_ and
+   authenticate it.
 
  DLT         Client                                              Server
 
@@ -423,25 +423,26 @@ Table of Contents
              {Finished}              -------->
              [Application Data]      <------->        [Application Data]
 
- Figure 2: TLS Server Uses Verifiable Credential
+            Figure 2: TLS Server Uses Verifiable Credential
 
 6.2.  Mutual authentication with Verifiable Credentials
 
-   This example shows a TLS 1.3 handshake with mutual authentication
-   where both client and server authenticate the peer using Verifiable
-   Credentials.  The client sends the server_certificate_type extension
-   indicating both VC and X.509 certificate types along with the
-   did_methods extension containing the list of supported DID Methods.
-   The client also sends the client_certificate_type extension
-   indicating its capability to provide both a Verifiable Credential and
-   an X.509 certificate.  The server sends the server_certificate_type
-   set to VC, the client_certificate_type set to VC and the
-   CertificateRequest message with the did_methods extension containig a
-   set of DID Methods in common with the client.  Client and server send
-   their Verifiable Credential into their respective Certificate
-   messages.  After receiving the CertificateVerify and Finished
-   messages, the client and then the server resolve the peer's DID to
-   retrieve the associated _pk_ and authenticate each other.
+   The example in Figure 3 shows a TLS 1.3 handshake with mutual
+   authentication where both client and server authenticate the peer
+   using Verifiable Credentials.  The client sends the
+   server_certificate_type extension indicating both VC and X.509
+   certificate types along with the did_methods extension containing the
+   list of supported DID Methods.  The client also sends the
+   client_certificate_type extension indicating its capability to
+   provide both a Verifiable Credential and an X.509 certificate.  The
+   server sends the server_certificate_type set to VC, the
+   client_certificate_type set to VC and the CertificateRequest message
+   with the did_methods extension containig a set of DID Methods in
+   common with the client.  Client and server send their Verifiable
+   Credential into their respective Certificate messages.  After
+   receiving the CertificateVerify and Finished messages, the client and
+   then the server resolve the peer's DID to retrieve the associated
+   _pk_ and authenticate each other.
 
  DLT        Client                                    Server         DLT
 
@@ -469,26 +470,26 @@ Table of Contents
                                                             ==========>
             [Application Data] <------->  [Application Data]
 
- Figure 3: TLS Client and TLS Server Use Verifiable Credentials
+     Figure 3: TLS Client and TLS Server Use Verifiable Credentials
 
 6.3.  Mutual authentication with Client using Verifiable Credential and
       Server using X.509 Certificate
 
-   This example shows a TLS 1.3 handshake with mutual authentication
-   that combines the use of Verifiable Credential and X.509 certificate.
-   The client uses a Verifiable Credential, and the server uses an X.509
-   certificate.  The client sends the server_certificate_type extension
-   indicating X.509 certificate types.  The client also sends the
-   client_certificate_type extension indicating its capability to
-   provide both a Verifiable Credential and an X.509 certificate.  The
-   server sends the server_certificate_type set to X.509, the
-   client_certificate_type set to VC and the CertificateRequest message
-   with the did_methods extension containig the set of suported DID
-   Methods.  The server sends its X.509 certificate and the client its
-   Verifiable Credential into their respective Certificate messages.
-   After receiving the CertificateVerify and Finished messages, the
-   server resolves the client DID to retrieve the client _pk_ and
-   authenticate it.
+   The example in Figure 4 shows a TLS 1.3 handshake with mutual
+   authentication that combines the use of Verifiable Credential and
+   X.509 certificate.  The client uses a Verifiable Credential, and the
+   server uses an X.509 certificate.  The client sends the
+   server_certificate_type extension indicating X.509 certificate types.
+   The client also sends the client_certificate_type extension
+   indicating its capability to provide both a Verifiable Credential and
+   an X.509 certificate.  The server sends the server_certificate_type
+   set to X.509, the client_certificate_type set to VC and the
+   CertificateRequest message with the did_methods extension containig
+   the set of suported DID Methods.  The server sends its X.509
+   certificate and the client its Verifiable Credential into their
+   respective Certificate messages.  After receiving the
+   CertificateVerify and Finished messages, the server resolves the
+   client DID to retrieve the client _pk_ and authenticate it.
 
  Client                                               Server         DLT
 
@@ -513,16 +514,16 @@ Table of Contents
                                                             ==========>
  [Application Data]      <------->        [Application Data]
 
- Figure 4: TLS Client Uses a Verifiable Credential and TLS Server
- Uses an X.509 Certificate
+    Figure 4: TLS Client Uses a Verifiable Credential and TLS Server
+                       Uses an X.509 Certificate
 
 6.4.  Mutual authentication with Client using X.509 Certificate and
       Server using Verifiable Credential
 
-   This example complements the previous one showing a TLS 1.3 handshake
-   with mutual authentication where the client uses X.509 certificate
-   and the server a Verifiable Credential.  The client sends the
-   server_certificate_type extension indicating both VC and X.509
+   The example in Figure 5 complements the previous one showing a TLS
+   1.3 handshake with mutual authentication where the client uses X.509
+   certificate and the server a Verifiable Credential.  The client sends
+   the server_certificate_type extension indicating both VC and X.509
    certificate types along with the did_methods extension containing the
    list of supported DID Methods.  The client also sends the
    client_certificate_type extension indicating its capability to
@@ -557,8 +558,8 @@ Table of Contents
              {Finished}                 -------->
              [Application Data]         <------->     [Application Data]
 
- Figure 5: TLS Client Uses an X.509 Certificate and TLS Server Uses a
- Verifiable Credential
+     Figure 5: TLS Client Uses an X.509 Certificate and TLS Server
+                      Uses a Verifiable Credential
 
 7.  Security Considerations
 
