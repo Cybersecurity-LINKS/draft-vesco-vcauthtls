@@ -333,15 +333,13 @@ Table of Contents
       behaviours (a) the server terminates the session with a fatal
       alert of type unsupported_did_methods, (b) the server sends a
       HelloRetryRequest (HRR) message with a new extension listing the
-      DLTs in which it owns a DID_.
-
-   _These design considerations apply: solution (a) requires defining a
-   new fatal alert message type, and the client has no clues to perform
-   a new successful TLS handshake; solution (b) requires defining a new
-   HRR extension which could have privacy implications as it discloses
-   the DLTs where the server owns its DIDs; on the other hand, this
-   extension provides the client with clues to retry a successful new
-   TLS handshake_.
+      DLTs in which it owns a DID_. _These design considerations apply:
+      solution (a) requires defining a new fatal alert message type, and
+      the client has no clues to perform a new successful TLS handshake;
+      solution (b) requires defining a new HRR extension which could
+      have privacy implications as it discloses the DLTs where the
+      server owns its DIDs; on the other hand, this extension provides
+      the client with clues to retry a successful new TLS handshake_.
 
    *  Both client and server indicate support for the VC certificate
       type, the server MAY select the first (most preferred) certificate
@@ -370,10 +368,10 @@ Table of Contents
 
    When the selected certificate type is VC, the certificate_list in the
    Certificate message MUST contain no more than one CertificateEntry
-   with the content of the endpoint's Verifiable Credential.  The
-   content of the Verifiable Credential SHOULD be CBOR encoded.  After
-   decoding, the endpoint MUST follows the procedure in [VC] to verify
-   the Verifiable Credential.
+   with the content of the endpoint's Verifiable Credential. _This
+   document intends to mandate CBOR encoding for the Verifiable
+   Credential_. After decoding, the endpoint MUST follows the procedure
+   in [VC] to verify the Verifiable Credential.
 
 5.5.  CertificateVerify message
 
