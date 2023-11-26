@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-11-23T00:10:47.220002+00:00",
+  "timestamp": "2023-11-26T00:11:48.430456+00:00",
   "repo": "Cybersecurity-LINKS/draft-vesco-vcauthtls",
   "labels": [
     {
@@ -50,5 +50,34 @@
     }
   ],
   "issues": [],
-  "pulls": []
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOKqUsY85gO8vw",
+      "title": "some purely typographical fixes",
+      "url": "https://github.com/Cybersecurity-LINKS/draft-vesco-vcauthtls/pull/1",
+      "state": "MERGED",
+      "author": "thomas-fossati",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "* increase general kramdown-rfc friendliness\r\n* resolve informative/normative references conflict\r\n* remove tabs (it's UB in xml2rfc)",
+      "createdAt": "2023-11-23T14:06:18Z",
+      "updatedAt": "2023-11-24T16:10:29Z",
+      "baseRepository": "Cybersecurity-LINKS/draft-vesco-vcauthtls",
+      "baseRefName": "main",
+      "baseRefOid": "4ae80cd4d546998d2a52684b2868d2e682366b28",
+      "headRepository": "thomas-fossati/draft-vesco-vcauthtls",
+      "headRefName": "patch-1",
+      "headRefOid": "5729f62753fd14703f0db96d072f6c411eee0e5e",
+      "closedAt": "2023-11-24T16:10:28Z",
+      "mergedAt": "2023-11-24T16:10:28Z",
+      "mergedBy": "perubeanie",
+      "mergeCommit": {
+        "oid": "3cebb8dd7bd0e9e2b84d3d9dbb63bda783b95d24"
+      },
+      "comments": [],
+      "reviews": []
+    }
+  ]
 }
