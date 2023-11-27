@@ -4,10 +4,10 @@
 
 WG                                                              A. Vesco
 Internet-Draft                                               L. Perugini
-Intended status: Informational                          LINKS Foundation
-Expires: 27 May 2024                                           N. Tuveri
+Intended status: Standards Track                        LINKS Foundation
+Expires: 30 May 2024                                           N. Tuveri
                                                       Tampere University
-                                                        24 November 2023
+                                                        27 November 2023
 
 
 Transport Layer Security (TLS) Authentication with Verifiable Credential
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 May 2024.
+   This Internet-Draft will expire on 30 May 2024.
 
 Copyright Notice
 
