@@ -5,9 +5,7 @@
 WG                                                              A. Vesco
 Internet-Draft                                               L. Perugini
 Intended status: Standards Track                        LINKS Foundation
-Expires: 30 May 2024                                           N. Tuveri
-                                                      Tampere University
-                                                        27 November 2023
+Expires: 6 June 2024                                     4 December 2023
 
 
 Transport Layer Security (TLS) Authentication with Verifiable Credential
@@ -55,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 30 May 2024.
+   This Internet-Draft will expire on 6 June 2024.
 
 Copyright Notice
 
@@ -637,8 +635,3 @@ Authors' Addresses
    Leonardo Perugini
    LINKS Foundation
    Email: leonardo.perugini@linksfoundation.com
-
-
-   Nicola Tuveri
-   Tampere University
-   Email: nic.tuv@gmail.com
