@@ -124,7 +124,8 @@ Table of Contents
    of the VC signed by the entity holding the VC with its _sk_. The
    verifier authenticates the entity checking the validity and
    authenticity of the VP and the inner VC before granting or denying
-   access to the requesting entity.
+   access to the requesting entity.  Figure 1 shows step by step the
+   generation of the identity and the authentication with VP.
 
                               --------
                              | Entity |
@@ -148,6 +149,9 @@ Table of Contents
                              | Entity | ----------------> | Verifier | ----------------> | DLT |
                              |        | <---------------- |          | <---------------- |     |
                               --------        ok/ko        ----------          pk         -----
+
+Figure 1: Generation of the identity compliant with the SSI model and
+                        authentication with VP
 
    The current implementations of the authentication process run at the
    application layer.  A client estabhlishes a TLS channel
@@ -277,7 +281,7 @@ Table of Contents
 
 5.  TLS Client and Server Handshake
 
-   Figure 1 shows the message flow for full TLS handshake.
+   Figure 2 shows the message flow for full TLS handshake.
 
   DLT          Client                               Server           DLT
 
@@ -317,7 +321,7 @@ Table of Contents
           [] Indicates messages protected using keys
              derived from [sender]_application_traffic_secret_N.
 
-              Figure 1: Message Flow for full TLS Handshake
+              Figure 2: Message Flow for full TLS Handshake
 
 5.1.  ClientHello message
 
@@ -413,7 +417,7 @@ Table of Contents
 
 6.1.  Server authentication with Verifiable Credential
 
-   The example in Figure 2 shows a TLS 1.3 handshake with server
+   The example in Figure 3 shows a TLS 1.3 handshake with server
    authentication.  The client sends the server_certificate_type
    extension indicating both VC and X.509 certificate types.  In
    addition, the client sends the did_methods extension with the list of
@@ -443,11 +447,11 @@ Table of Contents
              {Finished}              -------->
              [Application Data]      <------->        [Application Data]
 
-            Figure 2: TLS Server Uses Verifiable Credential
+            Figure 3: TLS Server Uses Verifiable Credential
 
 6.2.  Mutual authentication with Verifiable Credentials
 
-   The example in Figure 3 shows a TLS 1.3 handshake with mutual
+   The example in Figure 4 shows a TLS 1.3 handshake with mutual
    authentication where both client and server authenticate the peer
    using Verifiable Credentials.  The client sends the
    server_certificate_type extension indicating both VC and X.509
@@ -490,12 +494,12 @@ Table of Contents
                                                             ==========>
             [Application Data] <------->  [Application Data]
 
-     Figure 3: TLS Client and TLS Server Use Verifiable Credentials
+     Figure 4: TLS Client and TLS Server Use Verifiable Credentials
 
 6.3.  Mutual authentication with Client using Verifiable Credential and
       Server using X.509 Certificate
 
-   The example in Figure 4 shows a TLS 1.3 handshake with mutual
+   The example in Figure 5 shows a TLS 1.3 handshake with mutual
    authentication that combines the use of Verifiable Credential and
    X.509 certificate.  The client uses a Verifiable Credential, and the
    server uses an X.509 certificate.  The client sends the
@@ -534,13 +538,13 @@ Table of Contents
                                                             ==========>
  [Application Data]      <------->        [Application Data]
 
-    Figure 4: TLS Client Uses a Verifiable Credential and TLS Server
+    Figure 5: TLS Client Uses a Verifiable Credential and TLS Server
                        Uses an X.509 Certificate
 
 6.4.  Mutual authentication with Client using X.509 Certificate and
       Server using Verifiable Credential
 
-   The example in Figure 5 complements the previous one showing a TLS
+   The example in Figure 6 complements the previous one showing a TLS
    1.3 handshake with mutual authentication where the client uses X.509
    certificate and the server a Verifiable Credential.  The client sends
    the server_certificate_type extension indicating both VC and X.509
@@ -578,7 +582,7 @@ Table of Contents
              {Finished}                 -------->
              [Application Data]         <------->     [Application Data]
 
-     Figure 5: TLS Client Uses an X.509 Certificate and TLS Server
+     Figure 6: TLS Client Uses an X.509 Certificate and TLS Server
                       Uses a Verifiable Credential
 
 7.  Security Considerations
