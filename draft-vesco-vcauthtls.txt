@@ -5,7 +5,7 @@
 WG                                                              A. Vesco
 Internet-Draft                                               L. Perugini
 Intended status: Standards Track                        LINKS Foundation
-Expires: 6 June 2024                                     4 December 2023
+Expires: 15 June 2024                                   13 December 2023
 
 
 Transport Layer Security (TLS) Authentication with Verifiable Credential
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 June 2024.
+   This Internet-Draft will expire on 15 June 2024.
 
 Copyright Notice
 
@@ -101,40 +101,64 @@ Table of Contents
 1.  Introduction
 
    The Self-Sovereign Identity (SSI) is a decentralised identity model
-   that gives a node control over the data it uses to generate and prove
-   its identity.  SSI model relies on three fundamental elements: a
-   distributed ledger as the Root of Trust (RoT) for public keys,
+   that gives an entity control over the data it uses to generate and
+   prove its identity.  SSI model relies on three fundamental elements:
+   a distributed ledger as the Root of Trust (RoT) for public keys,
    Decentralized IDentifier [DID], and Verifiable Credential [VC].  An
-   SSI aware node builds his identity starting from generating the
-   identity key pair (_sk_, _pk_).  Then the node stores _pk_ in the
-   distributed ledger of choice for other nodes to authenticate it.  A
-   node's DID is a pointer to the distributed ledger where other nodes
-   can retrieve its _pk_. A DID is a Uniform Resource Identifier (URI)
-   in the form did:did-method-name:method-specific-id where method-name
-   is the name of the [DID] Method used to interact with the distributed
+   SSI aware entity builds his identity starting from generating its key
+   pair (_sk_, _pk_).  Then the entity stores _pk_ in the distributed
+   ledger of choice for other entities to authenticate it.  An entity's
+   DID is a pointer to the distributed ledger where other entities can
+   retrieve its _pk_. A DID is a Uniform Resource Identifier (URI) in
+   the form did:did-method-name:method-specific-id where method-name is
+   the name of the [DID] Method used to interact with the distributed
    ledger and method-specific-id is the pointer to the [DID] Document
    that contains _pk_, stored in the distributed ledger.  After that,
-   the node can request a VC from one of the Issuers available in the
+   the entity can request a VC from one of the Issuers available in the
    system.  The VC contains the metadata to describe properties of the
-   credential, the DID and the claims about the identity of the node and
-   the signature of the Issuer.  The combination of the key pair (_sk_,
-   _pk_), the DID and at least one VC forms the identity compliant with
-   the SSI model.  A node requests access to services by presenting a
-   Verfiable Presentation [VP].  The VP is an envelop of the VC signed
-   by the node holding the VC with its _sk_. The verifier authenticates
-   the node checking the validity and authenticity of the VP and the
-   inner VC before granting or denying access to the requesting node.
+   credential, the DID and the claims about the identity of the entity
+   and the signature of the Issuer.  The combination of the key pair
+   (_sk_, _pk_), the DID and at least one VC forms the identity
+   compliant with the SSI model.  An entity requests access to services
+   by presenting a Verifiable Presentation [VP].  The VP is an envelop
+   of the VC signed by the entity holding the VC with its _sk_. The
+   verifier authenticates the entity checking the validity and
+   authenticity of the VP and the inner VC before granting or denying
+   access to the requesting entity.
+
+                              --------
+                             | Entity |
+                             |        |
+                              --------
+                            identity = [{pk,sk}]
+
+                              --------
+                             | Entity |                        pk                         -----
+                             |        | -----------------------------------------------> | DLT |
+                              --------                                                   |     |
+                            identity = [{pk,sk},DID]                                      -----
+
+ --------    request VC       --------
+| Issuer | <---------------- | Entity |
+|        | ----------------> |        |
+ --------        VC           --------
+                            identity = [{pk,sk},DID,VC]
+
+                              --------         VP(VC)      ----------     DID resolve     -----
+                             | Entity | ----------------> | Verifier | ----------------> | DLT |
+                             |        | <---------------- |          | <---------------- |     |
+                              --------        ok/ko        ----------          pk         -----
 
    The current implementations of the authentication process run at the
-   Application layer.  A client node estabhlishes a TLS channel
-   authenticating the server node with the server's X.509 certificate.
-   Then the server node authenticates the client node that sends its VP
-   at application layer (i.e. over the TLS channel already established).
-   The mutual authentication with VPs occurs when also the server node
-   exchanges its VP with the client node again at application layer.
+   application layer.  A client estabhlishes a TLS channel
+   authenticating the server with the server's X.509 certificate.  Then
+   the server authenticates the client that sends its VP at application
+   layer (i.e. over the TLS channel already established).  The mutual
+   authentication with VPs occurs when also the server exchanges its VP
+   with the client again at application layer.
 
    SSI is emerging as an identity option for Internet of Thing and Edge
-   nodes in computing continuum environments.  In these scenarios,
+   devices in computing continuum environments.  In these scenarios,
    (mutual) authentication with VP can take place directly at the TLS
    protocol layer, enabling the peer-to-peer interaction model envisaged
    by the SSI model.  This document describes the extensions to TLS
@@ -145,8 +169,8 @@ Table of Contents
    ability to perform hybrid authenticated handshakes supports the
    gradual deployment of SSI in existing systems.  Moreover, the
    extension allows TLS endpoints to use different distributed ledger
-   technologies to store their public keys and to authenticate the peer.
-   The authentication process is successful if the TLS endpoints
+   technologies to store their public keys and to authenticate the
+   peers.  The authentication process is successful if the TLS endpoints
    implement the DID Method to resolve the peer's DID.
 
    This document uses _italic formatting_ in the following sections to
