@@ -5,7 +5,7 @@
 WG                                                              A. Vesco
 Internet-Draft                                               L. Perugini
 Intended status: Standards Track                        LINKS Foundation
-Expires: 15 June 2024                                   13 December 2023
+Expires: 16 June 2024                                   14 December 2023
 
 
 Transport Layer Security (TLS) Authentication with Verifiable Credential
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 15 June 2024.
+   This Internet-Draft will expire on 16 June 2024.
 
 Copyright Notice
 
