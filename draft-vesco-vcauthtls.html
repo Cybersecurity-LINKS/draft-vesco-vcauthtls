@@ -1329,8 +1329,19 @@ struct {
       <h2 id="name-did_methods-extension">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-did_methods-extension" class="section-name selfRef">did_methods extension</a>
       </h2>
-<p id="section-4-1">This section defines the <code>did_methods</code> extension, used as part of an extended TLS 1.3 handshake when <code>VC</code> certificate type is used. This extension contains a list of DID Methods an endpoint supports, i.e. a set of DLTs an endpoint can interact with to resolve the peer's DID. A client <span class="bcp14">MUST</span> send this extension in the extended <code>ClientHello</code> message only when it indicates Verifiable Credential support in the <code>server_certificate_type</code> extension. The server <span class="bcp14">MUST</span> send this extension in a <code>CertificateRequest</code> message only if it indicates Verifiable Credential in <code>client_certificate_type</code> extension. The extension format which uses the <code>extension_data</code> field, is used to carry the <code>DIDMethodList</code> structure. The structure of this new extension is shown below.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-1">This section defines the <code>did_methods</code> extension, used as part of an extended TLS 1.3 handshake when <code>VC</code> certificate type is used. <code>ExtensionType</code> now contains the <code>did_methods</code> entry associated with the value 65282, indicated by IANA for private use.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4-2">
+<pre>
+enum {
+   server_name(0),
+   max_fragment_length(1),
+   did_methods(65282),
+   (65535)
+} ExtensionType;
+</pre><a href="#section-4-2" class="pilcrow">¶</a>
+</div>
+<p id="section-4-3">This extension contains a list of DID Methods an endpoint supports, i.e. a set of DLTs an endpoint can interact with to resolve the peer's DID. A client <span class="bcp14">MUST</span> send this extension in the extended <code>ClientHello</code> message only when it indicates Verifiable Credential support in the <code>server_certificate_type</code> extension. The server <span class="bcp14">MUST</span> send this extension in a <code>CertificateRequest</code> message only if it indicates Verifiable Credential in <code>client_certificate_type</code> extension. The extension format which uses the <code>extension_data</code> field, is used to carry the <code>DIDMethodList</code> structure. The structure of this new extension is shown below.<a href="#section-4-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4-4">
 <pre>
 enum {
    btcr(0),
@@ -1343,9 +1354,9 @@ enum {
 struct {
    DIDMethod did_methods&lt;2..2^16-2&gt;
 } DIDMethodList
-</pre><a href="#section-4-2" class="pilcrow">¶</a>
+</pre><a href="#section-4-4" class="pilcrow">¶</a>
 </div>
-<p id="section-4-3">The list of existing DID Methods is currently maintained by the W3C in <span>[<a href="#DID-Registries" class="cite xref">DID-Registries</a>]</span>. Each DID Method is expressed in the form of a string. This document proposes the <code>DIDMethod</code> enum to map these strings into integer values.<a href="#section-4-3" class="pilcrow">¶</a></p>
+<p id="section-4-5">The list of existing DID Methods is currently maintained by the W3C in <span>[<a href="#DID-Registries" class="cite xref">DID-Registries</a>]</span>. Each DID Method is expressed in the form of a string. This document proposes the <code>DIDMethod</code> enum to map these strings into integer values.<a href="#section-4-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="tls-client-and-server-handshake">

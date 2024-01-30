@@ -250,15 +250,25 @@ Figure 1: Generation of the identity compliant with the SSI model and
 4.  did_methods extension
 
    This section defines the did_methods extension, used as part of an
-   extended TLS 1.3 handshake when VC certificate type is used.  This
-   extension contains a list of DID Methods an endpoint supports, i.e. a
-   set of DLTs an endpoint can interact with to resolve the peer's DID.
-   A client MUST send this extension in the extended ClientHello message
-   only when it indicates Verifiable Credential support in the
-   server_certificate_type extension.  The server MUST send this
-   extension in a CertificateRequest message only if it indicates
-   Verifiable Credential in client_certificate_type extension.  The
-   extension format which uses the extension_data field, is used to
+   extended TLS 1.3 handshake when VC certificate type is used.
+   ExtensionType now contains the did_methods entry associated with the
+   value 65282, indicated by IANA for private use.
+
+   enum {
+      server_name(0),
+      max_fragment_length(1),
+      did_methods(65282),
+      (65535)
+   } ExtensionType;
+
+   This extension contains a list of DID Methods an endpoint supports,
+   i.e. a set of DLTs an endpoint can interact with to resolve the
+   peer's DID.  A client MUST send this extension in the extended
+   ClientHello message only when it indicates Verifiable Credential
+   support in the server_certificate_type extension.  The server MUST
+   send this extension in a CertificateRequest message only if it
+   indicates Verifiable Credential in client_certificate_type extension.
+   The extension format which uses the extension_data field, is used to
    carry the DIDMethodList structure.  The structure of this new
    extension is shown below.
 
