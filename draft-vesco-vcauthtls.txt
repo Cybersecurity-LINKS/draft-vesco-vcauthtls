@@ -5,7 +5,7 @@
 WG                                                              A. Vesco
 Internet-Draft                                               L. Perugini
 Intended status: Standards Track                        LINKS Foundation
-Expires: 16 June 2024                                   14 December 2023
+Expires: 2 August 2024                                   30 January 2024
 
 
 Transport Layer Security (TLS) Authentication with Verifiable Credential
@@ -53,11 +53,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 June 2024.
+   This Internet-Draft will expire on 2 August 2024.
 
 Copyright Notice
 
-   Copyright (c) 2023 IETF Trust and the persons identified as the
+   Copyright (c) 2024 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -651,7 +651,8 @@ Figure 1: Generation of the identity compliant with the SSI model and
 
 Acknowledgments
 
-   To be done.
+   We would like to thank Nicola Tuveri for his very helpful suggestions
+   in the preparation of the first version of this document.
 
 Authors' Addresses
 
