@@ -10,21 +10,21 @@
 <meta content="
        This document defines a new certificate type and extension for the exchange of Verifiable Credentials in the handshake of the Transport Layer Security (TLS) protocol. The new certificate type is intended to add the Verifiable Credentials as a new means of authentication. The resulting authentication process leverages a distributed ledger as the root of trust of the TLS endpoints' public keys. The endpoints can use different distributed ledger technologies to store their public keys and to perform the TLS handshake. 
     " name="description">
-<meta content="xml2rfc 3.19.1" name="generator">
+<meta content="xml2rfc 3.19.2" name="generator">
 <meta content="TLS" name="keyword">
 <meta content="VC" name="keyword">
 <meta content="DID" name="keyword">
 <meta content="DLT" name="keyword">
 <meta content="draft-vesco-vcauthtls-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.19.1
+  xml2rfc 3.19.2
     Python 3.11.6
     ConfigArgParse 1.7
     google-i18n-address 3.1.0
     intervaltree 3.1.0
     Jinja2 3.1.2
     lxml 4.9.3
-    platformdirs 4.1.0
+    platformdirs 4.2.0
     pycountry 22.3.5
     PyYAML 6.0.1
     requests 2.31.0
@@ -1033,7 +1033,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Vesco &amp; Perugini</td>
-<td class="center">Expires 4 August 2024</td>
+<td class="center">Expires 17 August 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1046,12 +1046,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-vesco-vcauthtls-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-02-01" class="published">1 February 2024</time>
+<time datetime="2024-02-14" class="published">14 February 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-08-04">4 August 2024</time></dd>
+<dd class="expires"><time datetime="2024-08-17">17 August 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1104,7 +1104,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 4 August 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 17 August 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1284,15 +1284,14 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
         <h3 id="name-client_certificate_type-and">
 <a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-client_certificate_type-and" class="section-name selfRef">client_certificate_type and server_certificate_type extensions</a>
         </h3>
-<p id="section-3.1-1">The TLS extensions <code>client_certificate_type</code> and <code>server_certificate_type</code> defined in <span>[<a href="#RFC7250" class="cite xref">RFC7250</a>]</span> are used to negotiate the type of <code>Certificate</code> messages used in TLS to authenticate the server and, optionally, the client. This section defines a new certificate type, called <code>VC</code>, for the TLS 1.3 handshake. The updated <code>CertificateType</code> enumeration, the corresponding addition to the <code>CertificateEntry</code> structure, and the <code>Certificate</code> message structure are shown below.
-In the current version of the document <code>VC</code> certificate type is set to 224, one of the values indicated by IANA for private use. <code>CertificateType</code> values are sent in the <code>server_certificate_type</code> and <code>client_certificate_type</code> extensions, and the <code>CertificateEntry</code> structures are included in the certificate chain sent in the <code>Certificate</code> message.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-1">The TLS extensions <code>client_certificate_type</code> and <code>server_certificate_type</code> defined in <span>[<a href="#RFC7250" class="cite xref">RFC7250</a>]</span> are used to negotiate the type of <code>Certificate</code> messages used in TLS to authenticate the server and, optionally, the client. This section defines a new certificate type, called <code>VC</code>, for the TLS 1.3 handshake. The updated <code>CertificateType</code> enumeration, the corresponding addition to the <code>CertificateEntry</code> structure, and the <code>Certificate</code> message structure are shown below. <code>CertificateType</code> values are sent in the <code>server_certificate_type</code> and <code>client_certificate_type</code> extensions, and the <code>CertificateEntry</code> structures are included in the certificate chain sent in the <code>Certificate</code> message.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-3.1-2">
 <pre>
 /* Managed by IANA */
 enum {
    X509(0),
    RawPublicKey(2),
-   VC(224),
+   VC(TBD),
    (255)
 } CertificateType;
 
@@ -1329,13 +1328,14 @@ struct {
       <h2 id="name-did_methods-extension">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-did_methods-extension" class="section-name selfRef">did_methods extension</a>
       </h2>
-<p id="section-4-1">This section defines the <code>did_methods</code> extension, used as part of an extended TLS 1.3 handshake when <code>VC</code> certificate type is used. <code>ExtensionType</code> now contains the <code>did_methods</code> entry associated with the value 65282, indicated by IANA for private use.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-1">This section defines the <code>did_methods</code> extension, used as part of an extended TLS 1.3 handshake when <code>VC</code> certificate type is used. <code>ExtensionType</code> now contains the <code>did_methods</code> entry.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4-2">
 <pre>
 enum {
    server_name(0),
    max_fragment_length(1),
-   did_methods(65282),
+   ..,
+   did_methods(TBD),
    (65535)
 } ExtensionType;
 </pre><a href="#section-4-2" class="pilcrow">¶</a>

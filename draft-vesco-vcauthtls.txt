@@ -5,7 +5,7 @@
 WG                                                              A. Vesco
 Internet-Draft                                               L. Perugini
 Intended status: Standards Track                        LINKS Foundation
-Expires: 4 August 2024                                   1 February 2024
+Expires: 17 August 2024                                 14 February 2024
 
 
 Transport Layer Security (TLS) Authentication with Verifiable Credential
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 August 2024.
+   This Internet-Draft will expire on 17 August 2024.
 
 Copyright Notice
 
@@ -200,18 +200,16 @@ Figure 1: Generation of the identity compliant with the SSI model and
    certificate type, called VC, for the TLS 1.3 handshake.  The updated
    CertificateType enumeration, the corresponding addition to the
    CertificateEntry structure, and the Certificate message structure are
-   shown below.  In the current version of the document VC certificate
-   type is set to 224, one of the values indicated by IANA for private
-   use.  CertificateType values are sent in the server_certificate_type
-   and client_certificate_type extensions, and the CertificateEntry
-   structures are included in the certificate chain sent in the
-   Certificate message.
+   shown below.  CertificateType values are sent in the
+   server_certificate_type and client_certificate_type extensions, and
+   the CertificateEntry structures are included in the certificate chain
+   sent in the Certificate message.
 
    /* Managed by IANA */
    enum {
       X509(0),
       RawPublicKey(2),
-      VC(224),
+      VC(TBD),
       (255)
    } CertificateType;
 
@@ -251,13 +249,13 @@ Figure 1: Generation of the identity compliant with the SSI model and
 
    This section defines the did_methods extension, used as part of an
    extended TLS 1.3 handshake when VC certificate type is used.
-   ExtensionType now contains the did_methods entry associated with the
-   value 65282, indicated by IANA for private use.
+   ExtensionType now contains the did_methods entry.
 
    enum {
       server_name(0),
       max_fragment_length(1),
-      did_methods(65282),
+      ..,
+      did_methods(TBD),
       (65535)
    } ExtensionType;
 
