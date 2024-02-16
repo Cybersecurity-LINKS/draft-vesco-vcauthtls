@@ -5,7 +5,7 @@
 WG                                                              A. Vesco
 Internet-Draft                                               L. Perugini
 Intended status: Standards Track                        LINKS Foundation
-Expires: 17 August 2024                                 14 February 2024
+Expires: 19 August 2024                                 16 February 2024
 
 
 Transport Layer Security (TLS) Authentication with Verifiable Credential
@@ -27,13 +27,8 @@ About This Document
 
    This note is to be removed before publishing as an RFC.
 
-   The latest revision of this draft can be found at
-   https://example.com/LATEST.  Status information for this document may
-   be found at https://datatracker.ietf.org/doc/draft-vesco-vcauthtls/.
-
-   Discussion of this document takes place on the WG Working Group
-   mailing list (mailto:WG@example.com), which is archived at
-   https://example.com/WG.
+   Status information for this document may be found at
+   https://datatracker.ietf.org/doc/draft-vesco-vcauthtls/.
 
    Source for this draft and an issue tracker can be found at
    https://github.com/Cybersecurity-LINKS/draft-vesco-vcauthtls.
@@ -53,7 +48,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 August 2024.
+   This Internet-Draft will expire on 19 August 2024.
 
 Copyright Notice
 
